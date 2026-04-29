@@ -13,9 +13,9 @@ let bookId;
 // helper function to handle logging neatly
 const log = (test, err, result) => {
     if (err) {
-        console.log('Fail [${test}]:', err);
+        console.log(`Fail [${test}]:`, err);
     } else {
-        console.log('Pass [${test}]', result);
+        console.log(`Pass [${test}]`, result);
     }
 };
 
@@ -34,13 +34,39 @@ const createANewBook = () => {
         stock: "420"
     });
 
+    ///
+    /// TEST 1: Create a new book
+    ///
     Book.create(testBook, (err, result) => {
-        log("Create", err, result);
+        log("Create a new book", err, result);
         
         // update the class test book for cross-referencing between test functions
         bookId = result.id;
-        console.log('Created book with ID: ${testBookId}')
+        console.log(`Created book with ID: ${bookId}`);
 
-        // call next test here to chain tests
+        // call get all books to chain test functions together
+        getAll();
     });
 }
+
+///
+/// Test 2: GET all books from the database
+///
+const getAll = () => {
+    console.log("\n--- Test 2: Get all books ---");
+
+    Book.getAll((err, result) => {
+        log("Get all books in the database", err, `Found ${result ? result.length : 0} books`);
+        
+        // call next test to keep chaining
+    });
+};
+
+///
+/// Test 3: GET book by bookId
+///
+const findById = () => {
+    //TODO
+};
+
+createANewBook();

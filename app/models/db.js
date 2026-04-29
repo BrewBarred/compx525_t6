@@ -1,3 +1,4 @@
+console.log("Attempting to connect to the DB...");
 // import mysql to communicate with mysql db server
 const mysql = require("mysql2");
 // keeps private details separate for later encoding
@@ -29,3 +30,4 @@ connection.connect(error => {
 
 // creates a connection module to neatly duplicate this connection in other classes
 module.exports = connection;
+console.log("Successfully connected to the DB!");

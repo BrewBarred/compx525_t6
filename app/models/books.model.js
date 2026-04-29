@@ -2,10 +2,8 @@ const db = require("./db");
 
 // TODO: complete the code as per the instructions given README.md
 
-console.log("Successfully connected to the DB!");
-
 // define what a book object
-const Project = function(book) {
+const Book = function(book) {
   // the name of this book as it appears on the cover
   this.title = book.title;
   // the author of this book
@@ -19,17 +17,30 @@ const Project = function(book) {
 };
 
 // create a function which allows users to create a new book object
+Book.create = (newBook, result) => {
+  // setup a query to insert aa book into the book set
+  db.query("INSERT INTO books SET ?", newBook, (err, res) => {
+    // return early if an error occurs while performing the insertion
+    if (err) {
+      result(err, null);
+      return;
+    }
+    // else insert the book into the database
+    result(null, {id: res.insertId, ...newBook});
+  });
+};
 
+// create a function which returns all books in the database
+Book.getAll = (result) => {
+  // setup a query to select all books from the database
+  db.query("SELECT * FROM books", (err, res) => {
+    if (err) {
+      result(err, null);
+      return;
+    }
+    //else, return all books in the database
+    result(null, res);
+  })
+}
 
-module.exports = Project;
-
-// TEST - create a test book object and log it to the console. cmd: node "Task 6/app/models/books.model.js" 
-const testBook = new Project({
-  title: "Test Book",
-  author: "Test Author",
-  genre: "Test Genre",
-  price: 9.99,
-  stock: 5
-});
-
-console.log("Test book object:", testBook);
+module.exports = Book;
