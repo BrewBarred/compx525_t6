@@ -5,18 +5,11 @@
 
 // import the database connection and model
 const db = require("./app/models/db");
+// import the Book object we modelled in books.model.js
 const Book = require("./app/models/books.model");
-// define the properties for a book object
-const testBook = new Book({
-    title: "The tales of the test tickle title",
-    author: "Test, The Third",
-    genre: "Genre Shree",
-    price: "9.69",
-    stock: "420"
-});
 
 // track the id of the book we create so we can cross-reference it between tests
-let bookId;
+let book;
 
 // helper function to handle logging neatly
 const log = (test, err, result) => {
@@ -33,12 +26,22 @@ const log = (test, err, result) => {
 const testCreateANewBook = () => {
     console.log("\n--- Test 1: Create a new book ---");
 
+    // define the properties for a book object
+    const testBook = new Book({
+        title: "The tales of the test tickle title",
+        author: "Test, The Third",
+        genre: "Genre Shree",
+        price: "9.69",
+        stock: "420"
+    });
+
+    // create a new book to test model.js functionality
     Book.create(testBook, (err, result) => {
         console.log("\n---Test 1: Create a new book", err, result);
 
         // update the class test book for cross-referencing between test functions
-        bookId = result.id;
-        console.log(`creating a new book with ID: ${bookId}`);
+        book = result;
+        log(`creating a new book with ID: ${book.id}`);
         // call get all books to chain test functions together
         testGetAll();
     });
@@ -49,7 +52,7 @@ const testCreateANewBook = () => {
 ///
 const testGetAll = () => {
     console.log("\n---Test 2: Get all books from the database ---");
-
+    // fetch all books from the database
     Book.getAll((err, result) => {
         log("fetching all books in the database", err, `Found ${result ? result.length : 0} books`);
         // call next test to keep chaining
@@ -58,30 +61,51 @@ const testGetAll = () => {
 };
 
 ///
-/// Test 3: GET book by bookId (find the test book that we just created)
+/// Test 3: GET book by book id (find the test book that we just created)
 ///
 const testFindById = () => {
     console.log("\n--- Test 3: Find book by ID ---");
 
-    Book.findById(bookId, (err, result) => {
-        log("finding a book by its bookID", err, result);
+    Book.findById(book.id, (err, result) => {
+        log("finding a book by its id", err, result);
         // call next test to keep chaining
-        testUpdateById();
+        testFindByName();
     });
 };
 
 ///
-/// Test 4: Update a book by ID
+/// Test 4: GET book by book name
 ///
-const testUpdateById = (id, book, result) => {
+const testFindByName = () => {
+    console.log("\n--- Test 4: Find book by name ---");
+
+    Book.findById("Test", (err, result) => {
+        log("Find By Name", err, `Found ${result ? result.length : 0} books matching 'Test'`);
+        testUpdateById();
+    });
+}
+
+
+///
+///
+///
+const testUpdateById = () => {
     console.log("\n--- Test 4: Update a book by ID ---");
+
+    const updatedBook = {
+        title: "Updated Test Book",
+        author: "Updated Author",
+        genre: "Updated Genre",
+        price: 19.99,
+        stock: 10
+    };
 
     // create a query to update a book
     db.query(
         // request to update
         "UPDATE books SET title=?, author=?, genre=?, price=?, stock=? WHERE id=?",
         // define the new values (taken from the passed book object)
-        [book.title, book.author, book.genre, book.price, book.stock, id],
+        [book.title, book.author, book.genre, book.price, book.stock, book.id],
         // process the response
         (err, res) => {
             // if the response represents an error
@@ -96,9 +120,9 @@ const testUpdateById = (id, book, result) => {
                 // return informative error message before returning
                 result({ kind: "not_found" }, null);
                 return;
-            }         
+            }
             
-            // else if we get here the update was successful, use the spread operator (...book) to unpack book properties
+            // if we get here the update was successful, use the spread operator (...book) to unpack book properties
             result(null, { id: id, ...book });
         }
     )
