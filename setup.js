@@ -11,6 +11,7 @@ db.query("SELECT COUNT(*) AS count FROM books", (err, result) => {
   if (err) {
     console.log("No existing data found, importing books.sql...");
     runSQL();
+    console.log(`Successfully initialized database with : ${result[0].total_books} rows!`);
     return;
   }
 

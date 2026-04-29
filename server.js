@@ -1,13 +1,13 @@
-// Setup Express
+// setup express
 const express = require("express");
 const cors    = require("cors");
 
 const app = express();
 
-// To help with accessing this server from Postman
+// helps with accessing this server from Postman
 app.use(cors());
 
-// To help with POST and PUT requests to the server
+// helps with POST and PUT requests to the server
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
