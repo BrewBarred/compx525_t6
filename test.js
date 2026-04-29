@@ -13,16 +13,16 @@ let bookId;
 // helper function to handle logging neatly
 const log = (test, err, result) => {
     if (err) {
-        console.log(`Fail [${test}]:`, err);
+        console.log(`Test failed! Error occurred while [${test}]:`, err);
     } else {
-        console.log(`Pass [${test}]`, result);
+        console.log(`Test passed! Error occurred while [${test}]`, result);
     }
 };
 
 //
 //  TEST 1: Create a new book
 //
-const createANewBook = () => {
+const testCreateANewBook = () => {
     console.log("\n--- Test 1: Create a new book ---");
 
     // define a test book to insert
@@ -39,39 +39,44 @@ const createANewBook = () => {
     ///
     Book.create(testBook, (err, result) => {
         console.log("\n---Test 1: Create a new book", err, result);
+
         // update the class test book for cross-referencing between test functions
         bookId = result.id;
         console.log(`Created book with ID: ${bookId}`);
         // call get all books to chain test functions together
-        getAll();
+        testGetAll();
     });
 }
 
 ///
 /// Test 2: GET all books from the database
 ///
-const getAll = () => {
+const testGetAll = () => {
     console.log("\n---Test 2: Get all books from the database ---");
 
     Book.getAll((err, result) => {
         log("Get all books in the database", err, `Found ${result ? result.length : 0} books`);
         // call next test to keep chaining
-        findById();
+        testFindById();
     });
 };
 
 ///
 /// Test 3: GET book by bookId (find the test book that we just created)
 ///
-const findById = () => {
+const testFindById = () => {
     console.log("\n--- Test 3: Find book by ID ---");
 
-    Book.findById(testBookId, (err, result) => {
-        log("Find by ID", err, result);
+    Book.findById(bookId, (err, result) => {
+        log("finding by its ID", err, result);
         // call next test to keep chaining
-        findByName();
+        // TODO
     });
 };
+
+// TODO: next test
+
+
 
 // start test-chain when this class is called
 createANewBook();

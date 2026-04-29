@@ -1,3 +1,4 @@
+// connect to the mysql datbase
 const db = require("./db");
 
 // TODO: complete the code as per the instructions given README.md
@@ -62,5 +63,7 @@ Book.findById = (id, result) => {
     result({ kind: "not_found" }, null);
   })
 }
+
+
 
 module.exports = Book;

@@ -1,21 +1,6 @@
 # Ensure you are in the project folder: "Task6-Skeleton-Code" (Not all caps)
 1. Run * setup.js * to ensure the database is reset and ready for a fresh set of queries
 
-# Task Goal
-Learn about:
- * HTTP Verbs to make request
-      [C(POST)
-       R(GET)
-       U(PUT)
-       D(DELETE)]
- * HTTP Response codes to indicate status
- * MySQL database
- * Node.js and Express.js back-end
-
-
-
-### Application Description
-This is a simple Node.js RESTful CRUD API using Express to interact with a MySQL database. This RESTful API should be able to respond to the following requests:
 •	Create new books and save it back to the database. 
 •	Get list of all books available in the database.
 •	Get books by book ID.
@@ -24,22 +9,14 @@ This is a simple Node.js RESTful CRUD API using Express to interact with a MySQL
 •	Delete book by book ID.
 •	Delete all books from the database.
 
-
-### Implementation
-* You have been provided with a skeleton implementation, along with a books.sql file to create the database table.
-* You should extend the skeleton code rather than develop a completely new solution yourself.  
-* Clone the new repository to your computer using Git. Store the repository in your COMPX575 directory.
-* Remember to commit and push regularly as you work on the project!
-
-
 What you need to do:
-1.	Download the skeleton code. In the terminal, run npm install to install all the required dependencies.
-2.	Review server.js to understand how the Express web-server has been setup.
-3.	In the config directory, copy db.config.js.in file to db.config.js, and replace the username, password and database entries with your own credentials.
-4.	Ingest books.sql, into your MySQL instance, to create a books table with twenty rows inserted in the table.
+# 1.	Download the skeleton code. In the terminal, run npm install to install all the required dependencies.
+# 2.	Review server.js to understand how the Express web-server has been setup.
+# 3.	In the config directory, copy db.config.js.in file to db.config.js, and replace the username, password and database entries with your own credentials.
+# 4.	Ingest books.sql, into your MySQL instance, to create a books table with twenty rows inserted in the table.
 5.	In the models directory, in the books.model.js file, expand upon the minimal constructor for books that is provided, and use the database connection to write CRUD functions:
 You need to support the following functions (user query() method):
-    * Create Books 
+    # Create Books 
     * Retrieve All Books 
     * Retrieve Books by ID
     * Retrieve Books by Book Name
