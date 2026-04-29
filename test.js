@@ -27,7 +27,7 @@ const createANewBook = () => {
 
     // define a test book to insert
     const testBook = new Book({
-        title: "The tales of the test title",
+        title: "The tales of the test tickle title",
         author: "Test, The Third",
         genre: "Genre Shree",
         price: "9.69",
@@ -38,12 +38,10 @@ const createANewBook = () => {
     /// TEST 1: Create a new book
     ///
     Book.create(testBook, (err, result) => {
-        log("Create a new book", err, result);
-        
+        console.log("\n---Test 1: Create a new book", err, result);
         // update the class test book for cross-referencing between test functions
         bookId = result.id;
         console.log(`Created book with ID: ${bookId}`);
-
         // call get all books to chain test functions together
         getAll();
     });
@@ -53,20 +51,27 @@ const createANewBook = () => {
 /// Test 2: GET all books from the database
 ///
 const getAll = () => {
-    console.log("\n--- Test 2: Get all books ---");
+    console.log("\n---Test 2: Get all books from the database ---");
 
     Book.getAll((err, result) => {
         log("Get all books in the database", err, `Found ${result ? result.length : 0} books`);
-        
         // call next test to keep chaining
+        findById();
     });
 };
 
 ///
-/// Test 3: GET book by bookId
+/// Test 3: GET book by bookId (find the test book that we just created)
 ///
 const findById = () => {
-    //TODO
+    console.log("\n--- Test 3: Find book by ID ---");
+
+    Book.findById(testBookId, (err, result) => {
+        log("Find by ID", err, result);
+        // call next test to keep chaining
+        findByName();
+    });
 };
 
+// start test-chain when this class is called
 createANewBook();

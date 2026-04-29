@@ -43,4 +43,24 @@ Book.getAll = (result) => {
   })
 }
 
+// create a function which can return any book in the database by ID
+Book.findById = (id, result) => {
+  db.query("SELECT * FROM books WHERE id = ?", [id], (err, res) => {
+    // return early if there are any errors accessing the data
+    if (err) {
+      result(err, null);
+      return;
+    }
+
+    // return the length of the array if it is valid
+    if (res.length) {
+      result(null, res[0]);
+      return;
+    }
+
+    // else treturn an error msg if there is any errors finding the specific book
+    result({ kind: "not_found" }, null);
+  })
+}
+
 module.exports = Book;
