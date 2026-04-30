@@ -19,6 +19,7 @@ const Book = function(book) {
 
 // create a function which allows users to create a new book object
 Book.create = (newBook, result) => {
+  console.log("Inserting \"" + [newBook.title] + "\" into the book set");
   // setup a query to insert aa book into the book set
   db.query("INSERT INTO books SET ?", newBook, (err, res) => {
     // return early if an error occurs while performing the insertion
@@ -41,8 +42,8 @@ Book.getAll = (result) => {
     }
     //else, return all books in the database
     result(null, res);
-  })
-}
+  });
+};
 
 // create a function which can return any book in the database by ID
 Book.findById = (id, result) => {
@@ -59,10 +60,21 @@ Book.findById = (id, result) => {
       return;
     }
 
-    // else treturn an error msg if there is any errors finding the specific book
+    // else return an error msg if there is any errors finding the specific book
     result({ kind: "not_found" }, null);
-  })
-}
+  });
+};
+
+// create a function to find a book by its name
+Book.findByName = (title, result) => {
+  // create a function which finds book by their book title (uses LIKE to return things containing the string and to use vars e.g., title)
+  db.query("SELECT * FROM books WHERE title LIKE ?", [`%${title}%`], (err, res) => {
+    result(null, res);
+    return;
+  });
+
+  result(null, res);
+};
 
 
 
