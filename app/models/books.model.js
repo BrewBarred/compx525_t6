@@ -69,11 +69,14 @@ Book.findById = (id, result) => {
 Book.findByName = (title, result) => {
   // create a function which finds book by their book title (uses LIKE to return things containing the string and to use vars e.g., title)
   db.query("SELECT * FROM books WHERE title LIKE ?", [`%${title}%`], (err, res) => {
-    result(null, res);
-    return;
-  });
+    if (err) {
+      result(err, null);
+      return;
+    }
 
-  result(null, res);
+    // 
+    result(null, res);
+  });
 };
 
 

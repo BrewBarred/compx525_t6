@@ -79,53 +79,10 @@ const testFindById = () => {
 const testFindByName = () => {
     console.log("\n--- Test 4: Find book by name ---");
 
-    Book.findById("Test", (err, result) => {
-        log("Find By Name", err, `Found ${result ? result.length : 0} books matching 'Test'`);
-        testUpdateById();
+    Book.findByName("Test", (err, result) => {
+        log("finding a book by its title", err, `Found ${result ? result.length : 0} books matching 'Test'`);
+        // TODO chain next test
     });
-}
-
-
-///
-///
-///
-const testUpdateById = () => {
-    console.log("\n--- Test 4: Update a book by ID ---");
-
-    const updatedBook = {
-        title: "Updated Test Book",
-        author: "Updated Author",
-        genre: "Updated Genre",
-        price: 19.99,
-        stock: 10
-    };
-
-    // create a query to update a book
-    db.query(
-        // request to update
-        "UPDATE books SET title=?, author=?, genre=?, price=?, stock=? WHERE id=?",
-        // define the new values (taken from the passed book object)
-        [book.title, book.author, book.genre, book.price, book.stock, book.id],
-        // process the response
-        (err, res) => {
-            // if the response represents an error
-            if (err) {
-                // print error and return early
-                result(err, null);
-                return;
-            }
-            
-            // else if the response says we updated 0 rows, we were unsuccessful
-            if (res.affectedRows==0) {
-                // return informative error message before returning
-                result({ kind: "not_found" }, null);
-                return;
-            }
-            
-            // if we get here the update was successful, use the spread operator (...book) to unpack book properties
-            result(null, { id: id, ...book });
-        }
-    )
 }
 
 // TODO: next test
