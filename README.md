@@ -24,8 +24,8 @@ What you need to do:
 # Delete Books by ID
 # Delete All Books
 # In the routes directory, in a books.routes.js file, set all the endpoints.
-7.	In controller folder, in books.controller.js file, write the controllers with CRUD functions.
-8.	Test API using POSTMAN.
+# 7.	In controller folder, in books.controller.js file, write the controllers with CRUD functions.
+# 8.	Test API using POSTMAN.
 
 ### What to Submit and How
 All pertinent material you have developed for this assignment must be submitted electronically using Moodle and your COMPX575 repository.  The submitted files must be sufficient to recreate your app by running npm install followed by npm start. Do not include your node_modules directory, as this is not needed to reconstitute your project using npm install. Moreover, it could contain binaries files specific to the computer platform you developed the assignment on that are incompatible with the computer system used to test your submitted assignment solution. 
