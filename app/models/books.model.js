@@ -105,6 +105,27 @@ Book.updateById = (id, book, result) => {
   );
 };
 
+// create a function to delete a book by id
+Book.remove = (id, result) => {
+  // create a query to delete a book by id
+  db.query("DELETE FROM books WHERE id = ?", [id], (err, res) => {
+    // if error response is returned
+    if (err) {
+      // throw an error and return early
+      result(err, null);
+      return;
+    }
+
+    // if the response shows no updated rows
+    if (res.affectedRows == 0) {
+      // throw a different error and return early
+      result({ kind: "not_found" }, null);
+      return;
+    }
+
+    result(null, res);
+  });
+};
 
 
 module.exports = Book;
