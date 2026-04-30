@@ -129,6 +129,7 @@ const testDeleteById = () => {
 const testDeleteAll = () => {
     console.log("\n--- Test 7: Delete all books ---");
 
+    // attempt to remove all books from the database :O
     Book.removeAll((err, result) => {
         log("Delete all", err, `Deleted ${result ? result.affectedRows : 0} books`);
 

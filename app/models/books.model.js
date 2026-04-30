@@ -127,5 +127,21 @@ Book.remove = (id, result) => {
   });
 };
 
+// create a function to remove all books from the database
+Book.removeAll = (result) => {
+  // create a query to remove all books from the db
+  db.query("DELETE FROM books", (err, res) => {
+    // if an error response is returned
+    if (err){
+      // return an error response
+      result(err, null);
+      return;
+    }
+
+    // return response
+    result(null, res);
+  });
+};
+
 
 module.exports = Book;

@@ -16,13 +16,13 @@ What you need to do:
 # 4.	Ingest books.sql, into your MySQL instance, to create a books table with twenty rows inserted in the table.
 5.	In the models directory, in the books.model.js file, expand upon the minimal constructor for books that is provided, and use the database connection to write CRUD functions:
 You need to support the following functions (user query() method):
-    # Create Books 
-    * Retrieve All Books 
-    * Retrieve Books by ID
-    * Retrieve Books by Book Name
-    * Update Books by ID
-    * Delete Books by ID
-    * Delete All Books
+# Create Books 
+# Retrieve All Books 
+# Retrieve Books by ID
+# Retrieve Books by Book Name
+# Update Books by ID
+# Delete Books by ID
+# Delete All Books
 6.	In the routes directory, in a books.routes.js file, set all the endpoints.
 7.	In controller folder, in books.controller.js file, write the controllers with CRUD functions.
 8.	Test API using POSTMAN.
