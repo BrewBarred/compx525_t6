@@ -13,5 +13,16 @@ module.exports = app => {
     // get books by name
     app.get("/books/title/:title", books.findByName);
 
+    // get books by id
+    app.get("/books/:id", books.findOne);
+
+    // put books by id
+    app.put("/books/:id", books.update);
+
+    // delete book by id
+    app.delete("/books/:id", books.delete);
+
+    // delete every book from the database
+    app.delete("/books", books.deleteAll);
   };
 }
