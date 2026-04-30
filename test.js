@@ -117,7 +117,7 @@ const testDeleteById = () => {
 
     // attempt to remove the book using the saved book id
     Book.remove(book.id, (err, result) => {
-        log("Delete by ID", err, `Deleted book with ID: ${testBookId}`);
+        log("Delete by ID", err, `Deleted book with ID: ${book.id}`);
         // chain the next test
         testDeleteAll();
     });
