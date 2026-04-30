@@ -45,7 +45,7 @@ Book.getAll = (result) => {
   });
 };
 
-// create a function which can return any book in the database by ID
+// create a function to return any book in the database by ID
 Book.findById = (id, result) => {
   db.query("SELECT * FROM books WHERE id = ?", [id], (err, res) => {
     // return early if there are any errors accessing the data
@@ -67,16 +67,42 @@ Book.findById = (id, result) => {
 
 // create a function to find a book by its name
 Book.findByName = (title, result) => {
-  // create a function which finds book by their book title (uses LIKE to return things containing the string and to use vars e.g., title)
+  // create a query to find books by their book title (uses LIKE to return things containing the string and to use vars e.g., title)
   db.query("SELECT * FROM books WHERE title LIKE ?", [`%${title}%`], (err, res) => {
     if (err) {
       result(err, null);
       return;
     }
 
-    // 
+    // return the response
     result(null, res);
   });
+};
+
+// create a function to update a book's details by ID
+Book.updateById = (id, book, result) => {
+  // create a query to update the properties of a book
+  db.query(
+    "UPDATE books SET title=?, author=?, genre=?, price=?, stock=? WHERE id=?",
+    [book.title, book.author, book.genre, book.price, book.stock, id],
+    (err, res) => {
+      // check for error response
+      if (err) {
+        // return early on errors
+        result(err, null);
+        return;
+      }
+
+      // if nothing was updated, return a custom error
+      if (res.affectedRows == 0) {
+        result({ kind: "not_found" }, null);
+        return;
+      }
+
+      // else, return the id and unpacked book properties
+      result(null, { id: id, ...book });
+    }
+  );
 };
 
 
