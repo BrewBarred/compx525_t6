@@ -1,5 +1,5 @@
 // import mysql to communicate with mysql db server
-const mysql = require("mysql");
+const mysql = require("mysql2");
 // keeps private details separate for later encoding
 const dbConfig = require("../config/db.config.js");
 // setup the connection to the database
