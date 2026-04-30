@@ -81,9 +81,32 @@ const testFindByName = () => {
 
     Book.findByName("Test", (err, result) => {
         log("finding a book by its title", err, `Found ${result ? result.length : 0} books matching 'Test'`);
-        // TODO chain next test
+        // chain next test
+        testUpdateById();
     });
-}
+};
+
+///
+/// Test 5: Update the properties of a book
+///
+const testUpdateById = () => {
+    console.log("\n--- Test 5: Update the properties of a book---");
+    
+    // provide some new book details to update the book with 
+    const updatedBook = {
+        title: "Updated book",
+        author: "Updated author",
+        genre: "Updated genre",
+        price: 0.00,
+        stock: 1000000
+    };
+
+    // attempt to update the book
+    Book.updateById(book.id, updatedBook, (err, result) => {
+        log("Update by ID", err, result);
+        // TODO: chain next test
+    });
+};
 
 // TODO: next test
 
