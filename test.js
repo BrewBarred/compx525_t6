@@ -104,12 +104,40 @@ const testUpdateById = () => {
     // attempt to update the book
     Book.updateById(book.id, updatedBook, (err, result) => {
         log("Update by ID", err, result);
-        // TODO: chain next test
+        // chain the next test
+        testDeleteById();
     });
 };
 
-// TODO: next test
+///
+/// Test 6: Delete a book by ID
+///
+const testDeleteById = () => {
+    console.log("\n--- Test 6: Delete a book---")
 
+    // attempt to remove the book using the saved book id
+    Book.remove(book.id, (err, result) => {
+        log("Delete by ID", err, `Deleted book with ID: ${testBookId}`);
+        // chain the next test
+        testDeleteAll();
+    });
+};
+
+///
+/// Test 7: Delete all books
+///
+const testDeleteAll = () => {
+    console.log("\n--- Test 7: Delete all books ---");
+
+    Book.removeAll((err, result) => {
+        log("Delete all", err, `Deleted ${result ? result.affectedRows : 0} books`);
+
+        // close the database connection since all tests are done now
+        console.log("\n---  All tests complete! ---");
+        console.log("! Run 'node setup.js' to reinitialize the database");
+        db.end;
+    });
+};
 
 // start test-chain when this class is called
 testCreateANewBook();
